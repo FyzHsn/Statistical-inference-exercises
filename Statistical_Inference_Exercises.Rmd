@@ -8,4 +8,27 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-### Problem 7
+Problem 1  
+---------
+Load the data set mtcars in the `datasets` R package. Calculate a 95% confidence interval to the nearest mile per gallon (MPG) for the variable `mpg`.  
+
+```{r load mtcars dataset}
+setwd("C:\\Users\\Windows\\Documents\\JHU_Data_Science\\Course_6\\") # Set working directory
+library(datasets) # Load datasets package  
+data(mtcars) # Load mtcars data  
+head(mtcars) # Heading of mtcars dataset
+```
+Now, let us find the 95% confidence interval for the mpg variable.
+
+```{r mpg mean and sd}
+meanmpg <- mean(mtcars$mpg) # mean of mpg data
+sdmpg <- sd(mtcars$mpg) # standard deviation of data
+n <- length(mtcars$mpg) # sample size
+
+meanmpg + c(-1, 1)*qt(0.975, n-1)*sdmpg/sqrt(n) # Solution 1 - direct computaion
+
+t.test(mtcars$mpg) # Solution 2 - Use predefined R function
+```
+Hence, the 95% confidence interval assuming a t distribution (sample size is 32) is `[18, 22]`.
+
+
