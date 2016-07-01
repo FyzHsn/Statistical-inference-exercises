@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 Problem 1  
 ---------
-Load the data set mtcars in the `datasets` R package. Calculate a 95% confidence interval to the nearest mile per gallon (MPG) for the variable `mpg`.  
+**Load the data set mtcars in the `datasets` R package. Calculate a 95% confidence interval to the nearest mile per gallon (MPG) for the variable `mpg`.**  
 
 ```{r load mtcars dataset}
 setwd("C:\\Users\\Windows\\Documents\\JHU_Data_Science\\Course_6\\") # Set working directory
@@ -30,5 +30,14 @@ meanmpg + c(-1, 1)*qt(0.975, n-1)*sdmpg/sqrt(n) # Solution 1 - direct computaion
 t.test(mtcars$mpg) # Solution 2 - Use predefined R function
 ```
 Hence, the 95% confidence interval assuming a t distribution (sample size is 32) is `[18, 22]`.
+
+Problem 2
+---------  
+**Suppose that the standard deviation of 9 paired differences is `1`. What value would the average of the difference have to be so that the lower endpoint of a 95% student's t confidence interval touches zero?**
+
+The value of the average would have to be: 
+```{r mean value computation}
+qt(0.975, 8)*1/sqrt(9)
+```
 
 

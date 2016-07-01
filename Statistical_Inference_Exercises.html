@@ -124,7 +124,7 @@ $(document).ready(function () {
 
 <div id="problem-1" class="section level2">
 <h2>Problem 1</h2>
-<p>Load the data set mtcars in the <code>datasets</code> R package. Calculate a 95% confidence interval to the nearest mile per gallon (MPG) for the variable <code>mpg</code>.</p>
+<p><strong>Load the data set mtcars in the <code>datasets</code> R package. Calculate a 95% confidence interval to the nearest mile per gallon (MPG) for the variable <code>mpg</code>.</strong></p>
 <pre class="r"><code>setwd(&quot;C:\\Users\\Windows\\Documents\\JHU_Data_Science\\Course_6\\&quot;) # Set working directory
 library(datasets) # Load datasets package  
 data(mtcars) # Load mtcars data  
@@ -156,6 +156,13 @@ meanmpg + c(-1, 1)*qt(0.975, n-1)*sdmpg/sqrt(n) # Solution 1 - direct computaion
 ## mean of x 
 ##  20.09062</code></pre>
 <p>Hence, the 95% confidence interval assuming a t distribution (sample size is 32) is <code>[18, 22]</code>.</p>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2</h2>
+<p><strong>Suppose that the standard deviation of 9 paired differences is <code>1</code>. What value would the average of the difference have to be so that the lower endpoint of a 95% student’s t confidence interval touches zero?</strong></p>
+<p>The value of the average would have to be:</p>
+<pre class="r"><code>qt(0.975, 8)*1/sqrt(9)</code></pre>
+<pre><code>## [1] 0.768668</code></pre>
 </div>
 
 
