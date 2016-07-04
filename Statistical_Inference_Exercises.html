@@ -164,6 +164,35 @@ meanmpg + c(-1, 1)*qt(0.975, n-1)*sdmpg/sqrt(n) # Solution 1 - direct computaion
 <pre class="r"><code>qt(0.975, 8)*1/sqrt(9)</code></pre>
 <pre><code>## [1] 0.768668</code></pre>
 </div>
+<div id="problem-3" class="section level2">
+<h2>Problem 3</h2>
+<p><strong>Consider the mtcars dataset. Construct a 95% T interval for the MPG comparing 4 to 6 cylinder cars (subtracting in the order of 4 - 6) assume a constant variance.</strong></p>
+<pre class="r"><code>head(mtcars)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<pre class="r"><code>fourcyldata &lt;- mtcars[mtcars$cyl == 4, ] # dataset of 4 cylinder cars only
+sixcyldata &lt;- mtcars[mtcars$cyl == 6, ] # dataset of 6 cylinder cars
+meanfour &lt;- mean(fourcyldata$mpg) # mean of 4 cyl. data
+meansix &lt;- mean(sixcyldata$mpg) # mean of 6 cyl. data
+sdfour &lt;- sd(fourcyldata$mpg) # standard dev. of 4 cyl data
+sdsix &lt;- sd(sixcyldata$mpg) # standard dev. of 6 cyl data
+nfour &lt;- length(fourcyldata$mpg) # length of four cyl. data
+nsix &lt;- length(sixcyldata$mpg) # length of six cyl. data
+
+# Solution 1 using formulae
+(meanfour - meansix) + c(-1, 1)*sqrt(1/nfour + 1/nsix)*qt(0.975, nfour+nsix-2)*sqrt(((nfour-1)*sdfour^2 + (nsix-1)*sdsix^2)/(nfour+nsix-2))</code></pre>
+<pre><code>## [1]  3.154286 10.687272</code></pre>
+<pre class="r"><code># Solution 2 using R function
+t.test(fourcyldata$mpg, sixcyldata$mpg, paired = FALSE, var.equal = TRUE)$conf</code></pre>
+<pre><code>## [1]  3.154286 10.687272
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
+</div>
 
 
 
