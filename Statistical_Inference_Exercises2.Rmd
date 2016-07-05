@@ -13,7 +13,7 @@ Problem 1
 ---------
 **Load the data set `mtcars` in the `datasets` R package. Assume that the data set mtcars is a random sample. Compute the mean MPG, $\bar{x}$, of this sample. You want to test whether the true MPG is $\mu_0$ or smaller using a one sided 5% level test. ($H_0 : \mu = \mu_0$ versus $H_a : \mu < \mu_0$). Using the data set and a Z test based on the mean MPG of the sample, what is the smallest value of $\mu_0$ that you would reject for (to two decimal places)?**
 
-```{r solution}
+```{r solution 1}
 library(datasets)
 data(mtcars) # load mtcars data set
 str(mtcars) # structure of data set
@@ -27,6 +27,27 @@ Hence, the smallest value of $\mu_0$ based on the Z test which would lead us to 
 
 Problem 2
 ---------
-** **
+**Consider again the mtcars dataset. Use a two group t-test to test the hypothesis that the 4 and 6 cylinder cars have the same mpg. Use a two sided test with unequal variances. Do you reject?**
+
+```{r solution 2}
+fourcyldata <- mtcars[mtcars$cyl == 4, ] # dataset of 4 cylinder cars only
+sixcyldata <- mtcars[mtcars$cyl == 6, ] # dataset of 6 cylinder cars
+
+# Carry out the T test that 4 and 6 cyl. cars have same mpg.
+t.test(fourcyldata$mpg, sixcyldata$mpg, paired = FALSE, var.equal = FALSE)
+```
+
+At the 5% level, we reject the hypothesis.
+
+Problem 3
+---------
+**A sample of 100 men yielded an average PSA level of 3.0 with a standard deviation of 1.1. What are the complete set of values that a 5% two sided Z test of $H_0: \mu = \mu_0$ would fail to reject the null hypothesis for?**
+
+```{r solution 3}
+# range of values
+valuerange <- 3 + c(-1, 1)*qnorm(0.975)*1.1/sqrt(100)
+```
+
+We would fail to reject the hypothesis in the interval `r valuerange`.
 
 

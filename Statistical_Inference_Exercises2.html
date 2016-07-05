@@ -146,7 +146,35 @@ n &lt;- length(mtcars$mpg) # length of data set, i.e. sample size
 meanmpg</code></pre>
 <pre><code>## [1] 20.09062</code></pre>
 <pre class="r"><code>smallestvalue &lt;- meanmpg + qnorm(0.95)*sdmpg/sqrt(n) # Solution</code></pre>
-<p>Hence, the smallest value of <span class="math inline">\(\mu_0\)</span> based on the Z test which would us to reject <span class="math inline">\(H_0\)</span> is 21.8430915</p>
+<p>Hence, the smallest value of <span class="math inline">\(\mu_0\)</span> based on the Z test which would lead us to reject <span class="math inline">\(H_0\)</span> is 21.8430915.</p>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2</h2>
+<p><strong>Consider again the mtcars dataset. Use a two group t-test to test the hypothesis that the 4 and 6 cylinder cars have the same mpg. Use a two sided test with unequal variances. Do you reject?</strong></p>
+<pre class="r"><code>fourcyldata &lt;- mtcars[mtcars$cyl == 4, ] # dataset of 4 cylinder cars only
+sixcyldata &lt;- mtcars[mtcars$cyl == 6, ] # dataset of 6 cylinder cars
+
+# Carry out the T test that 4 and 6 cyl. cars have same mpg.
+t.test(fourcyldata$mpg, sixcyldata$mpg, paired = FALSE, var.equal = FALSE)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  fourcyldata$mpg and sixcyldata$mpg
+## t = 4.7191, df = 12.956, p-value = 0.0004048
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   3.751376 10.090182
+## sample estimates:
+## mean of x mean of y 
+##  26.66364  19.74286</code></pre>
+<p>At the 5% level, we reject the hypothesis.</p>
+</div>
+<div id="problem-3" class="section level2">
+<h2>Problem 3</h2>
+<p><strong>A sample of 100 men yielded an average PSA level of 3.0 with a standard deviation of 1.1. What are the complete set of values that a 5% two sided Z test of <span class="math inline">\(H_0: \mu = \mu_0\)</span> would fail to reject the null hypothesis for?</strong></p>
+<pre class="r"><code># range of values
+valuerange &lt;- 3 + c(-1, 1)*qnorm(0.975)*1.1/sqrt(100)</code></pre>
+<p>We would fail to reject the hypothesis in the interval 2.784404, 3.215596.</p>
 </div>
 
 
