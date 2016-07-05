@@ -143,7 +143,54 @@ str(mtcars) # show structure of dataset</code></pre>
 <pre class="r"><code>fourcyldata &lt;- mtcars[mtcars$cyl == 4, ] # subset of 4 cylinder cars
 sixcyldata &lt;- mtcars[mtcars$cyl == 6, ] # subset of 6 cylinder cars
 hypothtest &lt;- t.test(fourcyldata$mpg, sixcyldata$mpg, alternative = &quot;two.sided&quot;, var.equal = FALSE) # two sided t test with unequal variances</code></pre>
-<p>Hence, the two sided t-test with unequal variances take a p-value of 4.048495310^{-4}</p>
+<p>Hence, the two sided t-test with unequal variances take a p-value of 4.048495310^{-4}.</p>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2</h2>
+<p><strong>A website was monitored for a year and it recieved 520 hits per day. In the first 30 days in the next year, the site recieved 15800 hits. Assuming that web hits are Poisson, give an exact one sided P-value to the alternate hypothesis that webhits are up this year over last. Do you reject the hypothesis?</strong></p>
+<pre class="r"><code>pval &lt;- ppois(15799, lambda = 520 * 30, lower.tail = FALSE) # P-value</code></pre>
+<p>Hence, the p value is given by 0.0553311 and we do not reject the null hypothesis.</p>
+</div>
+<div id="problem-3" class="section level2">
+<h2>Problem 3</h2>
+<p><strong>Consider the <code>mtcars</code> data set: (i) Give the p-value for a t-test comparing MPG for 6 and 8 cylinder cars assuming equal variances, (ii) Give the associated p-value for a z-test, (iii) Give the common standard deviation estimate for MPG across cylinders, (iv) Would the t-test reject at the two sided 0.05 level?</strong></p>
+<pre class="r"><code>library(datasets) # load datasets library
+data(&quot;mtcars&quot;) # load mtcars dataset
+str(mtcars) # show structure of dataset</code></pre>
+<pre><code>## 'data.frame':    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<pre class="r"><code>sixcyldata &lt;- mtcars[mtcars$cyl == 6, ] # subset of 6 cylinder cars
+eightcyldata &lt;- mtcars[mtcars$cyl == 8, ] # subset of 8 cylinder cars
+ptval &lt;- t.test(sixcyldata$mpg, eightcyldata$mpg, paired = FALSE, var.equal = TRUE, alternative = &quot;two.sided&quot;)$p.value # t-test p value</code></pre>
+<p>The p-value from the t-test is 2.947025110^{-4}.</p>
+<pre class="r"><code># compute z statistic
+m1 &lt;- mean(sixcyldata$mpg) # mean of 6 cyl. data
+m2 &lt;- mean(eightcyldata$mpg) # mean of 8 cyl. data
+sd1 &lt;- sd(sixcyldata$mpg) # standard deviation of 6 cyl. data 
+sd2 &lt;- sd(eightcyldata$mpg) # std dev of 8 cyl data
+n1 &lt;- length(sixcyldata$mpg) # number of 6 cyl observations
+n2 &lt;- length(eightcyldata$mpg) # number of 8 cyl observations
+sdcom &lt;- sqrt(((n1 - 1)*sd1^2 + (n2-2)*sd2^2)/(n1+n2-2))
+sdcom</code></pre>
+<pre><code>## [1] 2.192371</code></pre>
+<pre class="r"><code>se &lt;- sdcom*sqrt(1/n1 + 1/n2) # standrd error
+se</code></pre>
+<pre><code>## [1] 1.01487</code></pre>
+<pre class="r"><code>zstat &lt;- (m1-m2)/se # corresponding z statistics
+pzval &lt;- 2*pnorm(-abs(zstat)) # z-test p value</code></pre>
+<p>The p-value from the z-test is 4.766125510^{-6}.</p>
+<pre class="r"><code>sd(mtcars$mpg)</code></pre>
+<pre><code>## [1] 6.026948</code></pre>
 </div>
 
 

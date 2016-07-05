@@ -22,4 +22,46 @@ sixcyldata <- mtcars[mtcars$cyl == 6, ] # subset of 6 cylinder cars
 hypothtest <- t.test(fourcyldata$mpg, sixcyldata$mpg, alternative = "two.sided", var.equal = FALSE) # two sided t test with unequal variances
 ```
 
-Hence, the two sided t-test with unequal variances take a p-value of `r hypothtest$p.value`
+Hence, the two sided t-test with unequal variances take a p-value of `r hypothtest$p.value`.
+
+Problem 2
+---------
+**A website was monitored for a year and it recieved 520 hits per day. In the first 30 days in the next year, the site recieved 15800 hits. Assuming that web hits are Poisson, give an exact one sided P-value to the alternate hypothesis that webhits are up this year over last. Do you reject the hypothesis?**
+
+```{r solution 2}
+pval <- ppois(15799, lambda = 520 * 30, lower.tail = FALSE) # P-value
+```
+
+Hence, the p value is given by `r pval` and we do not reject the null hypothesis.
+
+Problem 3
+---------
+**Consider the `mtcars` data set: (i) Give the p-value for a t-test comparing MPG for 6 and 8 cylinder cars assuming equal variances, (ii) Give the associated p-value for a z-test, (iii) Give the common standard deviation estimate for MPG across cylinders, (iv) Would the t-test reject at the two sided 0.05 level?**
+
+```{r solution 3 (i)}
+library(datasets) # load datasets library
+data("mtcars") # load mtcars dataset
+str(mtcars) # show structure of dataset
+sixcyldata <- mtcars[mtcars$cyl == 6, ] # subset of 6 cylinder cars
+eightcyldata <- mtcars[mtcars$cyl == 8, ] # subset of 8 cylinder cars
+ptval <- t.test(sixcyldata$mpg, eightcyldata$mpg, paired = FALSE, var.equal = TRUE, alternative = "two.sided")$p.value # t-test p value
+```
+The p-value from the t-test is `r ptval`.
+
+
+```{r sol 3 (ii)}
+# compute z statistic
+m1 <- mean(sixcyldata$mpg) # mean of 6 cyl. data
+m2 <- mean(eightcyldata$mpg) # mean of 8 cyl. data
+sd1 <- sd(sixcyldata$mpg) # standard deviation of 6 cyl. data 
+sd2 <- sd(eightcyldata$mpg) # std dev of 8 cyl data
+n1 <- length(sixcyldata$mpg) # number of 6 cyl observations
+n2 <- length(eightcyldata$mpg) # number of 8 cyl observations
+sdcom <- sqrt(((n1 - 1)*sd1^2 + (n2-2)*sd2^2)/(n1+n2-2))
+se <- sdcom*sqrt(1/n1 + 1/n2) # standrd error
+zstat <- (m1-m2)/se # corresponding z statistics
+pzval <- 2*pnorm(-abs(zstat)) # z-test p value
+```
+The p-value from the z-test is `r pzval`.
+
+The common standard error is `r sdcom`. We would reject the null hypothesis that the MPG of 6 and 8 cylinder cars are equivalent.
