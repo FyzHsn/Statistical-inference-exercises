@@ -176,6 +176,28 @@ t.test(fourcyldata$mpg, sixcyldata$mpg, paired = FALSE, var.equal = FALSE)</code
 valuerange &lt;- 3 + c(-1, 1)*qnorm(0.975)*1.1/sqrt(100)</code></pre>
 <p>We would fail to reject the hypothesis in the interval 2.784404, 3.215596.</p>
 </div>
+<div id="problem-4" class="section level2">
+<h2>Problem 4</h2>
+<p><strong>You believe that the coin you’re flipping is biased towards heads. You get 55 heads out of 100 flips. Do you reject at the 5% level that the coin is fair?</strong></p>
+<pre class="r"><code># Probability of getting 55 or more heads out of hundred coin flips in comparison to 5% level
+coinbias &lt;- pbinom(54, 100, prob = 0.5, lower.tail = FALSE)</code></pre>
+<p>Since, 0.1841008 is greater than <span class="math inline">\(0.05\)</span>, we reject the null hypothesis that the coin is fair in favor of the hypothesis that it is biased towards heads.</p>
+</div>
+<div id="problem-5" class="section level2">
+<h2>Problem 5</h2>
+<p><strong>Suppose that in an AB test, one advertising scheme led to an average of 10 purchases per day for a sample of 100 days, while the other led to 11 purchases per day, also for a sample of 100 days. Assume a common standard deviation of 4 purchases per day. Assuming that the groups are independent and that the days are iid, perform a Z test of equivalence. Do you reject at the 5% level?</strong></p>
+<pre class="r"><code># Z test of equivalence
+mean1 &lt;- 10 # mean from scheme 1
+mean2 &lt;- 11 # mean from scheme 2
+sd &lt;- 4 # common standard deviation of both schemes
+n1 &lt;- n2 &lt;- 100 # sample size of each scheme
+se &lt;- sd*sqrt(1/n1 + 1/n2) # sample standard error
+Zscore &lt;- (mean2 - mean1)/se # number of standard deviations away from having equal means
+Zscore</code></pre>
+<pre><code>## [1] 1.767767</code></pre>
+<pre class="r"><code>quantilescore &lt;- qnorm(0.975)</code></pre>
+<p>Since, 1.767767 is smaller than 1.959964, we fail to reject the hypothesis that the two schemes lead to equivalent results.</p>
+</div>
 
 
 

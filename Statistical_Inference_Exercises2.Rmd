@@ -50,4 +50,30 @@ valuerange <- 3 + c(-1, 1)*qnorm(0.975)*1.1/sqrt(100)
 
 We would fail to reject the hypothesis in the interval `r valuerange`.
 
+Problem 4
+---------
+**You believe that the coin you're flipping is biased towards heads. You get 55 heads out of 100 flips. Do you reject at the 5% level that the coin is fair?**
 
+```{r solution 4}
+# Probability of getting 55 or more heads out of hundred coin flips in comparison to 5% level
+coinbias <- pbinom(54, 100, prob = 0.5, lower.tail = FALSE)
+```
+
+Since, `r coinbias` is greater than $0.05$, we reject the null hypothesis that the coin is fair in favor of the hypothesis that it is biased towards heads.
+
+Problem 5
+---------
+**Suppose that in an AB test, one advertising scheme led to an average of 10 purchases per day for a sample of 100 days, while the other led to 11 purchases per day, also for a sample of 100 days. Assume a common standard deviation of 4 purchases per day. Assuming that the groups are independent and that the days are iid, perform a Z test of equivalence. Do you reject at the 5% level?**
+
+```{r solution 5}
+# Z test of equivalence
+mean1 <- 10 # mean from scheme 1
+mean2 <- 11 # mean from scheme 2
+sd <- 4 # common standard deviation of both schemes
+n1 <- n2 <- 100 # sample size of each scheme
+se <- sd*sqrt(1/n1 + 1/n2) # sample standard error
+Zscore <- (mean2 - mean1)/se # number of standard deviations away from having equal means
+Zscore
+quantilescore <- qnorm(0.975)
+```
+Since, `r Zscore` is smaller than `r quantilescore`, we fail to reject the hypothesis that the two schemes lead to equivalent results.
