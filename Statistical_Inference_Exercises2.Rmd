@@ -1,0 +1,32 @@
+---
+title: "Hypothesis Testing - Exercises"
+author: "Faiyaz Hasan"
+date: "July 4, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Problem 1
+---------
+**Load the data set `mtcars` in the `datasets` R package. Assume that the data set mtcars is a random sample. Compute the mean MPG, $\bar{x}$, of this sample. You want to test whether the true MPG is $\mu_0$ or smaller using a one sided 5% level test. ($H_0 : \mu = \mu_0$ versus $H_a : \mu < \mu_0$). Using the data set and a Z test based on the mean MPG of the sample, what is the smallest value of $\mu_0$ that you would reject for (to two decimal places)?**
+
+```{r solution}
+library(datasets)
+data(mtcars) # load mtcars data set
+str(mtcars) # structure of data set
+meanmpg <- mean(mtcars$mpg) # [mean] of [m]iles [p]er [g]allon of data set
+sdmpg <- sd(mtcars$mpg) # [s]tandard [d]eviation of [mpg]
+n <- length(mtcars$mpg) # length of data set, i.e. sample size
+meanmpg
+smallestvalue <- meanmpg + qnorm(0.95)*sdmpg/sqrt(n) # Solution
+```
+Hence, the smallest value of $\mu_0$ based on the Z test which would lead us to reject $H_0$ is `r smallestvalue`.
+
+Problem 2
+---------
+** **
+
+
