@@ -1,0 +1,25 @@
+---
+title: "P Values - Exercises"
+author: "Faiyaz Hasan"
+date: "July 5, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Problem 1
+---------
+**Consider again the `mtcars` dataset. Use a two group t-test to test the hypothesis that the 4 and 6 cyl cars have the same `mpg`. Use a two sided test with unequal variances. Give a P-value.**
+
+```{r solution 1}
+library(datasets) # load datasets library
+data("mtcars") # load mtcars dataset
+str(mtcars) # show structure of dataset
+fourcyldata <- mtcars[mtcars$cyl == 4, ] # subset of 4 cylinder cars
+sixcyldata <- mtcars[mtcars$cyl == 6, ] # subset of 6 cylinder cars
+hypothtest <- t.test(fourcyldata$mpg, sixcyldata$mpg, alternative = "two.sided", var.equal = FALSE) # two sided t test with unequal variances
+```
+
+Hence, the two sided t-test with unequal variances take a p-value of `r hypothtest$p.value`
